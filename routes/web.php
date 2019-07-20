@@ -16,4 +16,5 @@ Route::get('/', function () {
 });
 
 Route::get('locations', 'LocationController@index');
+Route::get('categories', 'CategoryController@index');
 Route::get('items', 'ItemController@index');
