@@ -15,7 +15,10 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        Category::create(['name' => $request->input('name')]);
+        Category::create([
+                'name' => $request->input('name'),
+                'parent_id' => $request->input('parent_id')
+            ]);
     }
 
     public function destroy(Category $category)

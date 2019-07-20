@@ -6,9 +6,9 @@
                     <span class="input-group-text">Name</span>
                 </div>
                 <input v-model="newCategoryName" type="text" class="form-control" placeholder="Category Name" />
-                <select>
+                <select v-model="newCategoryParent" class="form-control">
                   <option selected :value="null" > Select if needed </option>
-                  <option v-for="row in categories" :key="row.id" :value="row.id"> {{ row.name }} </option>
+                  <option v-for="row in categories" :key="row.id" :value="row.id" > {{ row.name }} </option>
                 </select>
                 <div class="input-group-append">
                     <button class="btn btn-primary">Create</button>
@@ -42,6 +42,7 @@ export default {
         return {
             categories: [],
             newCategoryName: '',
+            newCategoryParent: ''
         };
     },
     mounted() {
@@ -55,9 +56,12 @@ export default {
                 }).catch(console.error);
         },
         createCategory() {
-            return axios.post('/api/categories', {name: this.newCategoryName})
+            return axios.post('/api/categories', {name: this.newCategoryName, parent_id: this.newCategoryParent})
                 .then(this.getCategories)
-                .then(() => this.newCategoryName = '')
+                .then(() => {
+                  this.newCategoryName = '';
+                  this.newCategoryParent = '';
+                  })
                 .catch(console.error);
         },
         deleteCategory(id) {
