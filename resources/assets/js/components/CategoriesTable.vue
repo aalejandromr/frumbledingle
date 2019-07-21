@@ -6,6 +6,9 @@
                     <span class="input-group-text">Name</span>
                 </div>
                 <input v-model="newCategoryName" type="text" class="form-control" placeholder="Category Name" />
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Parent Category</span>
+                </div>
                 <select v-model="newCategoryParent" class="form-control">
                   <option selected :value="null" > Select if needed </option>
                   <option v-for="row in categories" :key="row.id" :value="row.id" > {{ row.name }} </option>
