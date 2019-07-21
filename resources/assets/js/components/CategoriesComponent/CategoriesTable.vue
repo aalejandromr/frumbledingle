@@ -18,7 +18,7 @@
                 </div>
             </div>
         </form>
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered" v-if="!isFetching">
             <thead class="thead-dark">
                 <th>ID</th>
                 <th>Name</th>
@@ -29,6 +29,11 @@
                 <CategoryItem v-bind:category="row" v-for="row in categories" :key="row.id" v-bind:handleCategory="deleteCategory"/>  
             </tbody>
         </table>
+        <div class="d-flex justify-content-center" v-else>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -41,7 +46,8 @@ export default {
         return {
             categories: [],
             newCategoryName: '',
-            newCategoryParent: ''
+            newCategoryParent: '',
+            isFetching: true
         };
     },
     mounted() {
@@ -52,6 +58,7 @@ export default {
             return axios.get('/api/categories')
                 .then(response => {
                     this.categories = response.data;
+                    this.isFetching = false;
                 }).catch(console.error);
         },
         createCategory() {

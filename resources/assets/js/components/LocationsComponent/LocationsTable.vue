@@ -11,7 +11,7 @@
                 </div>
             </div>
         </form>
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered"  v-if="!isFetching">
             <thead class="thead-dark">
                 <th>ID</th>
                 <th>Name</th>
@@ -21,6 +21,11 @@
                 <Location v-for="row in locations" :key="row.id" v-bind:location="row" v-bind:handleLocation="deleteLocation"/>
             </tbody>
         </table>
+        <div class="d-flex justify-content-center" v-else>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -33,6 +38,7 @@ export default {
         return {
             locations: [],
             newLocationName: '',
+            isFetching: true
         };
     },
     mounted() {
@@ -43,6 +49,7 @@ export default {
             return axios.get('/api/locations')
                 .then(response => {
                     this.locations = response.data;
+                    this.isFetching = false;
                 }).catch(console.error);
         },
         createLocation() {

@@ -29,7 +29,7 @@
                 </div>
             </div>
         </form>
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered" v-if="!isFetching">
             <thead class="thead-dark">
                 <th>ID</th>
                 <th>Name</th>
@@ -42,6 +42,11 @@
                 <Item v-for="item in items" :key="item.id" v-bind:item="item" v-bind:handleItem="deleteItem" />
             </tbody>
         </table>
+        <div class="d-flex justify-content-center" v-else>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -58,7 +63,8 @@ export default {
             newItemName: '',
             newItemPrice: '',
             newItemLocation: '',
-            newItemCategory: ''
+            newItemCategory: '',
+            isFetching: true
         };
     },
     mounted() {
@@ -71,6 +77,7 @@ export default {
             return axios.get('/api/items')
                 .then(response => {
                     this.items = response.data;
+                    this.isFetching = false;
                 }).catch(console.error);
         },
         getLocations() {
