@@ -27,11 +27,16 @@
                 </tr>
             </tbody>
         </table>
+      <pie-chart :data="reports.map(report => [report.category, report.Count])"></pie-chart>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Chartkick from 'vue-chartkick';
+import Chart from 'chart.js'
+
+Vue.use(Chartkick.use(Chart))
 
 export default {
     data() {
@@ -52,6 +57,7 @@ export default {
             })
                 .then(response => {
                     this.reports = response.data;
+                    console.log(response.data);
                 }).catch(console.error);
         }
     }
