@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Location extends Model
 {
-    // use SoftDeletes; // Normally we will want our application to afffect the data, but this is up to the requirements
+    use SoftDeletes; // Normally we will want our application to afffect the data, but this is up to the requirements
 
     protected $guarded = ['id'];
     

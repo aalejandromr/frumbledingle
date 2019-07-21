@@ -39,14 +39,7 @@
                 <th></th>
             </thead>
             <tbody>
-                <tr v-for="item in items" :key="item.id">
-                    <td>{{ item.id }}</td>
-                    <td> {{ item.name }}</td>
-                    <td> {{ item.price }}</td>
-                    <td> {{ item.location.name }}</td>
-                    <td> {{ item.category.name }}</td>
-                    <td align="center"><button class="btn btn-danger btn-sm" @click.prevent="deleteItem(item.id)"><i class="fa fa-times" /> Delete</button></td>
-                </tr>
+                <Item v-for="item in items" :key="item.id" v-bind:item="item" v-bind:handleItem="deleteItem" />
             </tbody>
         </table>
     </div>
@@ -54,6 +47,7 @@
 
 <script>
 import axios from 'axios';
+import Item from "./Item";
 
 export default {
     data() {
@@ -93,17 +87,17 @@ export default {
         },
         createItem() {
             return axios.post('/api/items', {
-                  name: this.newItemName, 
-                  price: this.newItemPrice,
-                  location: this.newItemLocation, 
-                  category: this.newItemCategory
+                    name: this.newItemName, 
+                    price: this.newItemPrice,
+                    location: this.newItemLocation, 
+                    category: this.newItemCategory
                 })
                 .then(this.getItems)
                 .then(() => {
-                  this.newItemName = '';
-                  this.newItemPrice = '';
-                  this.newItemLocation = '';
-                  this.newItemCategory = '';
+                    this.newItemName = '';
+                    this.newItemPrice = '';
+                    this.newItemLocation = '';
+                    this.newItemCategory = '';
                 })
                 .catch(console.error);
         },
@@ -112,6 +106,9 @@ export default {
                 .then(this.getItems)
                 .catch(console.error);
         }
+    },
+    components: {
+        Item
     }
 }
 </script>

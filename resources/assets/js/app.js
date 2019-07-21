@@ -8,9 +8,18 @@ require("./bootstrap");
 
 window.Vue = require("vue");
 
-Vue.component("locations-table", require("./components/LocationsTable.vue"));
-Vue.component("categories-table", require("./components/CategoriesTable.vue"));
-Vue.component("items-table", require("./components/ItemsTable.vue"));
+Vue.component(
+  "locations-table",
+  require("./components/LocationsComponent/LocationsTable.vue")
+);
+Vue.component(
+  "categories-table",
+  require("./components/CategoriesComponent/CategoriesTable.vue")
+);
+Vue.component(
+  "items-table",
+  require("./components/ItemsComponent/ItemsTable.vue")
+);
 Vue.component("reports", require("./components/Reports.vue"));
 
 new Vue({ el: "#app-container" });

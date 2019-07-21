@@ -18,11 +18,7 @@
                 <th></th>
             </thead>
             <tbody>
-                <tr v-for="row in locations" :key="row.id">
-                    <td>{{ row.id }}</td>
-                    <td>{{ row.name }}</td>
-                    <td align="center"><button class="btn btn-danger btn-sm" @click.prevent="deleteLocation(row.id)"><i class="fa fa-times" /> Delete</button></td>
-                </tr>
+                <Location v-for="row in locations" :key="row.id" v-bind:location="row" v-bind:handleLocation="deleteLocation"/>
             </tbody>
         </table>
     </div>
@@ -30,6 +26,7 @@
 
 <script>
 import axios from 'axios';
+import Location from './Location';
 
 export default {
     data() {
@@ -59,6 +56,9 @@ export default {
                 .then(this.getLocations)
                 .catch(console.error);
         }
+    },
+    components: {
+        Location
     }
 }
 </script>

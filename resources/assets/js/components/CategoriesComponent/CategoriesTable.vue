@@ -10,8 +10,8 @@
                     <span class="input-group-text">Parent Category</span>
                 </div>
                 <select v-model="newCategoryParent" class="form-control">
-                  <option selected :value="null" > Select if needed </option>
-                  <option v-for="row in categories" :key="row.id" :value="row.id" > {{ row.name }} </option>
+                    <option selected :value="null" > Select if needed </option>
+                    <option v-for="row in categories" :key="row.id" :value="row.id" > {{ row.name }} </option>
                 </select>
                 <div class="input-group-append">
                     <button class="btn btn-primary">Create</button>
@@ -26,12 +26,7 @@
                 <th></th>
             </thead>
             <tbody>
-                <tr v-for="row in categories" :key="row.id">
-                    <td>{{ row.id }}</td>
-                    <td> {{ row.name }}</td>
-                    <td>{{ row.parent ? row.parent.name : "NULL" }}</td>
-                    <td align="center"><button class="btn btn-danger btn-sm" @click.prevent="deleteCategory(row.id)"><i class="fa fa-times" /> Delete</button></td>
-                </tr>
+                <CategoryItem v-bind:category="row" v-for="row in categories" :key="row.id" v-bind:handleCategory="deleteCategory"/>  
             </tbody>
         </table>
     </div>
@@ -39,6 +34,7 @@
 
 <script>
 import axios from 'axios';
+import CategoryItem from './CategoryItem';
 
 export default {
     data() {
@@ -62,9 +58,9 @@ export default {
             return axios.post('/api/categories', {name: this.newCategoryName, parent_id: this.newCategoryParent})
                 .then(this.getCategories)
                 .then(() => {
-                  this.newCategoryName = '';
-                  this.newCategoryParent = '';
-                  })
+                    this.newCategoryName = '';
+                    this.newCategoryParent = '';
+                })
                 .catch(console.error);
         },
         deleteCategory(id) {
@@ -72,11 +68,36 @@ export default {
                 .then(this.getCategories)
                 .catch(console.error);
         }
+    },
+    components: {
+        CategoryItem
     }
 }
 </script>
 
 <style>
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
+
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
 .create-location-form {
     margin-bottom: 10px;
 }
