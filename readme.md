@@ -26,10 +26,9 @@ Frumbledingle Corp is struggling with its warehouse management, and has been loo
 - Run `composer install`
 - Make sure to set the database information your `.env` file
 - Run `php artisan migrate`
-- Host the app however you'd prefer, but use `npm run dev` or `npm run watch` to compile the Vue components
-
-## The Data
-The data for this application will be defined as below. Migrations have already been created to set up the tables for this data, but no data has been inserted. You will need to create your own database for this test.
+- Run `php artisan db:seed`
+- Run `npm run watch`
+- Grab a cup of coffee and enjoy :)
 
 ### Locations
 - Columns: ID, Name
