@@ -37,7 +37,9 @@
                 <li class="nav-item"><a class="nav-link" href="/locations">Locations</a></li>
                 <li class="nav-item"><a class="nav-link" href="/items">Items</a></li>
                 <li class="nav-item"><a class="nav-link" href="/categories">Categories</a></li>
-                <li class="nav-item"><a class="nav-link" href="/report">Report</a></li>
+                @if(Auth::user()->isAdmin())
+                    <li class="nav-item"><a class="nav-link" href="/report">Report</a></li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
