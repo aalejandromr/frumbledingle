@@ -15,6 +15,7 @@ class ReportController extends Controller
     {
         // $result = Item::where("price", ">", $request->price)->with('location', 'category')->get();
         // SELECT COUNT(*) as `COUNT`, `ca2`.name as `parent_category`, `ca`.name as `category`, `lo`.name as `location` from `items` i INNER JOIN `locations` lo ON `lo`.id = `i`.location_id INNER JOIN `categories` `ca` ON `ca`.id = `i`.category_id LEFT JOIN `categories` ca2 ON `ca`.parent_id = `ca2`.id where `i`.price >= 20
+        // $request->user()->authorizeRoles('admin');
         $result = DB::table('items')
         ->select("ca2.name as parent_category", "ca.name as category", "lo.name as location", DB::raw("COUNT(*) as Count"))
         ->join("locations as lo", "lo.id", "=", "items.location_id")
