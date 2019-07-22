@@ -19,3 +19,6 @@ Route::get('locations', 'LocationController@index');
 Route::get('categories', 'CategoryController@index');
 Route::get('items', 'ItemController@index');
 Route::get('report', 'ReportController@index');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

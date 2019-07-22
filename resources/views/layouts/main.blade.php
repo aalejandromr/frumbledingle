@@ -30,11 +30,26 @@
         <div class="logo"><i class="fa fa-object-group"></i> Frumbledingle Corp</div>
         <nav class="navbar navbar-expand-lg">
             <ul class="navbar-nav">
+                @if (Auth::guest())
+                    <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+                @else
                 <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="/locations">Locations</a></li>
                 <li class="nav-item"><a class="nav-link" href="/items">Items</a></li>
                 <li class="nav-item"><a class="nav-link" href="/categories">Categories</a></li>
                 <li class="nav-item"><a class="nav-link" href="/report">Report</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                        Logout
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                </li>
+                @endif
             </ul>
         </nav>
         @yield('content')
