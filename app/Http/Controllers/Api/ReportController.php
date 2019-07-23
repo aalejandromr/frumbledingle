@@ -22,6 +22,7 @@ class ReportController extends Controller
         ->join("categories as ca", "ca.id", "=", "items.category_id")
         ->leftjoin("categories as ca2", "ca.parent_id", "=", "ca2.id")
         ->groupBy("parent_category", "category", "location")
+        ->where("items.deleted_at", "=", NULL)
         ->where("items.price", ">=", $request->price)
         ->get();
         return response()->json($result);
